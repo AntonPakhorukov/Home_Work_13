@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Presenter {
+public class Presenter{
     public StringBuilder sortValue(String client) {
-        String finds = "qwertyuiop[]asdfghjkl;'zxcvbnm/йцукенгшщзхъфывапрол=джэячсмитьбю!\"№%:?()ё~`@#$^&{}><";
-        
-        String[] getString = client.split(" ");
+        String finds = "qwertyuiop[]asdfghjkl;'zxcvbnmйцукенгшщзхъфывапрол=джэячсмитьбю!\"№%:?()ё~`@#$^&{}><";
+        boolean flagOper = false;
+        String[] getString = client.toLowerCase().split(" ");
         List<String> list = new ArrayList<>();
         for (String item : getString) {
             list.add(item);
@@ -27,6 +27,7 @@ public class Presenter {
         for (int nl = 0; nl < newList.size(); nl++) {
             if (newList.get(nl).equals("+") || newList.get(nl).equals("-")
             || newList.get(nl).equals("/") || newList.get(nl).equals("*")){
+                flagOper = true;
                 sb.append(" ");
                 sb.append(newList.get(nl));
                 sb.append(" ");
@@ -34,7 +35,12 @@ public class Presenter {
                 sb.append(newList.get(nl));
             }
         }
-        return sb; 
+        if (flagOper == false && !(client.equals("end"))) {
+            System.out.println("Не корректный ввод, нет оператора, сервер зарован");
+            return null;
+        } else {
+            return sb;
+        }
     }
 
     public Double getX(StringBuilder client){

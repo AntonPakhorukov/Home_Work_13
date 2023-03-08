@@ -5,9 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-public class ServerView extends Presenter{
+public class ServerView {
     public static void main(String[] args) throws SocketException {
         Model model = new Model();
+        // CheckString check = new CheckString();
         Presenter presenter = new Presenter();
         try (ServerSocket serverSocket = new ServerSocket(1234)) {
             System.out.println("Сервер запущен, ожидаем подключение...");
@@ -17,6 +18,7 @@ public class ServerView extends Presenter{
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
             while(true) {
                 String clientRequest = dataInputStream.readUTF();
+                if (presenter.sortValue(clientRequest) == null) break;
                 if (clientRequest.equals("end")) break;
                 double a = presenter.getX(presenter.sortValue(clientRequest));
                 String sign = presenter.getOper(presenter.sortValue(clientRequest));

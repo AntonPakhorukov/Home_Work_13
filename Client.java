@@ -15,6 +15,7 @@ public class Client {
             while (true){
                 System.out.println("Введите выражение через пробел: ");
                 String request = scanner.nextLine();
+                if (new Presenter().sortValue(request) == null) break;
                 if (request.equals("end")) break;
                 if (request.contains(",")) {
                     System.out.println("Не корректный ввод");
